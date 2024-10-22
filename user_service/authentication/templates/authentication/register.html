@@ -1,23 +1,37 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'authentication/styles.css' %}">
 </head>
 <body>
-    <h1>Sign Up</h1>
-    <form method="POST" action="{% url 'register' %}">
-        {% csrf_token %}
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><br><br>
+    <h1>Welcome to ReCommerce</h1>
+    <p>Building Smarter E-Commerce with Microservices </p>
+    <div class="container">
+        <h1>Sign Up</h1>
+        <form method="POST" action="{% url 'register' %}">
+            {% csrf_token %}
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br>
+            <label for="first_name">First Name:</label>
+            <input type="text" id="first_name" name="first_name" required>
 
-        <button type="submit">Sign Up</button>
-    </form>
+            <label for="last_name">Last Name:</label>
+            <input type="text" id="last_name" name="last_name" required>
 
-    <p>Already have an account? <a href="{% url 'login' %}">Sign In</a></p>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Sign Up</button>
+        </form>
+        <p>Already have an account? <a href="{% url 'login' %}">Sign In</a></p>
+    </div>
 </body>
 </html>

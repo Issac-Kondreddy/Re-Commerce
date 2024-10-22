@@ -4,16 +4,36 @@ from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.core.exceptions import ValidationError
+from django.views.decorators.cache import never_cache
 
-# Sign Up View
 def register(request):
     if request.method == 'POST':
         username = request.POST.get('username')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
         password = request.POST.get('password')
-        user = User.objects.create_user(username=username, password=password)
-        login(request, user)  # Log in the user after successful registration
+
+        # Check if the email is already registered
+        if User.objects.filter(email=email).exists():
+            return render(request, 'authentication/register.html', {
+                'error': 'Email is already in use.'
+            })
+
+        # Create the user with additional fields
+        user = User.objects.create_user(
+            username=username,
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            password=password
+        )
+        login(request, user)
         return redirect('login')
+
     return render(request, 'authentication/register.html')
+
 
 # Sign In View
 @csrf_exempt
@@ -30,6 +50,7 @@ def login_user(request):
     return render(request, 'authentication/login.html')
 
 # Home View (Requires Login)
+@never_cache
 @login_required
 def home(request):
     return render(request, 'authentication/home.html')
