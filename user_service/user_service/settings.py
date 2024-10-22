@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-j%vc)n=o1ktuqjv!o(gg7+($tgh12=!v0sodl3%j^sxca^l6wg"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True  # Set to False in production
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = []  # Add your domain or IP address here in production
 
 
 # Application definition
@@ -37,14 +38,17 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "authentication",
+    "authentication",  # Your custom authentication app
     "rest_framework",
-    "rest_framework.authtoken",
-    'django.contrib.sites',  # required by allauth
+    "rest_framework.authtoken",  # DRF Token authentication
+    'django.contrib.sites',  # Required by Django Allauth
     'allauth',
     'allauth.account',
-    'allauth.socialaccount',  # Enable if you want social logins
+    'allauth.socialaccount',  # Enable social logins if required
+    "verify_email.apps.VerifyEmailConfig",  # Email verification app
 ]
+
+# Django Rest Framework Settings
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
@@ -55,14 +59,14 @@ REST_FRAMEWORK = {
 }
 
 MIDDLEWARE = [
-    'allauth.account.middleware.AccountMiddleware',
-    "django.middleware.security.SecurityMiddleware",
+    'django.middleware.security.SecurityMiddleware',
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+     'allauth.account.middleware.AccountMiddleware', 
 ]
 
 ROOT_URLCONF = "user_service.urls"
@@ -70,7 +74,7 @@ ROOT_URLCONF = "user_service.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR/'Templates'],
+        "DIRS": [BASE_DIR/'Templates'],  # Set your custom templates directory
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -87,8 +91,7 @@ WSGI_APPLICATION = "user_service.wsgi.application"
 
 
 # Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
+# Default database is SQLite3. Replace with PostgreSQL or MySQL in production.
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
@@ -98,8 +101,6 @@ DATABASES = {
 
 
 # Password validation
-# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -117,56 +118,65 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/5.0/topics/i18n/
-
 LANGUAGE_CODE = "en-us"
-
 TIME_ZONE = "UTC"
-
 USE_I18N = True
-
 USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
-
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
+    BASE_DIR / "static",  # Static files directory
 ]
+STATIC_ROOT = BASE_DIR / "staticfiles"  # Collect static files in production
+
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+
+# Security settings for CSRF and session management
 CSRF_COOKIE_SAMESITE = 'Strict'
 SESSION_COOKIE_SAMESITE = 'Strict'
-CSRF_COOKIE_HTTPONLY = False  # False since we will grab it via universal-cookies
+CSRF_COOKIE_HTTPONLY = False  # False since we might grab it via universal-cookies
 SESSION_COOKIE_HTTPONLY = True
 
-# PROD ONLY
+# Use the following settings in production:
 # CSRF_COOKIE_SECURE = True
 # SESSION_COOKIE_SECURE = True
+
+# Redirect to login page if not authenticated
 LOGIN_URL = '/authentication/login/'
 
 
-# Email settings for sending password reset emails
+# Email configuration for sending email verifications
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'issackondreddy@gmail.com'
-EMAIL_HOST_PASSWORD = 'qhvm yuqz dune qywj'  # Replace with your email password
+EMAIL_HOST_USER = 'issackondreddy@gmail.com'  # Replace with your email
+EMAIL_HOST_PASSWORD = 'qhvm yuqz dune qywj'  # Replace with your app password
 
-SITE_ID = 1
+DEFAULT_FROM_EMAIL = 'issackondreddy@gmail.com'  
+SITE_ID = 1  # Required for Django Allauth
 
 # Account activation email configuration
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_EMAIL_REQUIRED = True
-
 LOGIN_REDIRECT_URL = '/'
-
+LOGIN_URL = 'login' 
+# Allauth email confirmation settings
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/home/'
-ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/login/'
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'login'
+
+# Email verification custom settings (Optional)
+HTML_MESSAGE_TEMPLATE = "authentication/email_message.html"
+VERIFICATION_SUCCESS_TEMPLATE = "authentication/success.html"
+VERIFICATION_FAILED_TEMPLATE = "authentication/failed.html"
+
+# Expire email verification link after 1 day
+EXPIRE_AFTER = "1d"
+
+# Allow the user to resend the email 3 times before limiting
+MAX_RETRIES = 3

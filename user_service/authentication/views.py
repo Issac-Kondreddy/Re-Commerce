@@ -4,35 +4,36 @@ from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.core.exceptions import ValidationError
 from django.views.decorators.cache import never_cache
+from verify_email.email_handler import send_verification_email
+from django.core.exceptions import ValidationError
+from .forms import CustomUserCreationForm
 
+# Register View with Email Verification
 def register(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)  # Create the user instance but don't save it to the database yet
+            user.is_active = False  # Set user as inactive until email verification
+            user.save()  # Now save the user to the database
 
-        # Check if the email is already registered
-        if User.objects.filter(email=email).exists():
-            return render(request, 'authentication/register.html', {
-                'error': 'Email is already in use.'
-            })
+            try:
+                # Send verification email
+                send_verification_email(request, form)  # Pass form to send verification email correctly
+                request.session['unverified_user_email'] = user.email  # Store the email in session
+                return redirect('verification_sent')  # Redirect to verification message page
+            except ValidationError as e:
+                user.delete()  # If email sending fails, delete the user
+                return render(request, 'authentication/register.html', {'form': form, 'error': str(e)})
+    else:
+        form = CustomUserCreationForm()
 
-        # Create the user with additional fields
-        user = User.objects.create_user(
-            username=username,
-            first_name=first_name,
-            last_name=last_name,
-            email=email,
-            password=password
-        )
-        login(request, user)
-        return redirect('login')
+    return render(request, 'authentication/register.html', {'form': form})
 
-    return render(request, 'authentication/register.html')
+def verification_sent(request):
+    user_email = request.session.get('unverified_user_email', 'No email found')  # Retrieve email from session
+    return render(request, 'authentication/verification_sent.html', {'user_email': user_email})
 
 
 # Sign In View
@@ -43,10 +44,15 @@ def login_user(request):
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            login(request, user)  # Log in the user
-            return redirect('home')
+            # Check if the user's email has been verified
+            if user.is_active:
+                login(request, user)  # Log in the user
+                return redirect('home')
+            else:
+                return HttpResponse("Your account is inactive. Please verify your email.", status=400)
         else:
             return HttpResponse("Invalid Credentials", status=400)
+
     return render(request, 'authentication/login.html')
 
 # Home View (Requires Login)

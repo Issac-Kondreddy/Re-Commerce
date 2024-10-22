@@ -1,2 +1,0 @@
-Welcome {{ user.username }}! Please confirm your email by clicking the following link:
-{{ activate_url }}
