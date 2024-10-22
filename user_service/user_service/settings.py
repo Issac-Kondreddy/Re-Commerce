@@ -37,7 +37,18 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "authentication",
+    "rest_framework",
+    "rest_framework.authtoken"
 ]
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -54,7 +65,7 @@ ROOT_URLCONF = "user_service.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR/'Templates'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -121,3 +132,12 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+CSRF_COOKIE_SAMESITE = 'Strict'
+SESSION_COOKIE_SAMESITE = 'Strict'
+CSRF_COOKIE_HTTPONLY = False  # False since we will grab it via universal-cookies
+SESSION_COOKIE_HTTPONLY = True
+
+# PROD ONLY
+# CSRF_COOKIE_SECURE = True
+# SESSION_COOKIE_SECURE = True
