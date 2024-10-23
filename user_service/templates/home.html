@@ -1,0 +1,22 @@
+<!-- Templates/home.html -->
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Re-Commerce</title>
+    <link rel="stylesheet" href="{% static 'home_styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to ReCommerce</h1>
+        <p>Building Smarter E-Commerce with Microservices</p>
+
+        <div class="buttons">
+            <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+            <a href="{% url 'register' %}" class="btn btn-secondary">Sign Up</a>
+        </div>
+    </div>
+</body>
+</html>
