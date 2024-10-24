@@ -12,7 +12,9 @@
     <div class="container">
         <h1>Sign In</h1>
         <button class="btn-google">
+            {% if not test_mode %}
             <a href="{% provider_login_url 'google' %}">Login with Google</a>
+            {% endif %}
         </button>
         <form method="POST" action="{% url 'login' %}">
             {% csrf_token %}

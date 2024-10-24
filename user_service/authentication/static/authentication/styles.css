@@ -1,4 +1,4 @@
-/* styles.css */
+/* General Styles */
 * {
     margin: 0;
     padding: 0;
@@ -10,12 +10,65 @@ body {
     background: linear-gradient(135deg, #2b5876, #4e4376);
     height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     color: #fff;
 }
 
+/* Navbar Styles */
+.navbar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: #333;
+    color: white;
+    position: fixed;
+    top: 0;
+}
+
+.navbar .logo h2 {
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+.navbar .nav-links {
+    display: flex;
+    align-items: center;
+}
+
+.navbar .profile-icon {
+    font-size: 1.8rem;
+    color: white;
+    margin-right: 20px;
+    text-decoration: none;
+}
+
+.navbar .profile-icon:hover {
+    color: #ddd;
+}
+
+.logout-form {
+    margin: 0;
+}
+
+.logout-btn {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    color: #ff4c4c;
+}
+
+/* Container Styles */
 .container {
+    margin-top: 80px;  /* Push content below navbar */
     text-align: center;
     padding: 30px;
     background-color: rgba(255, 255, 255, 0.1);
@@ -26,112 +79,55 @@ body {
     width: 100%;
 }
 
+/* Card Container */
+.card-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.card {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    max-width: 300px;
+    width: 100%;
+}
+
+.profile-picture {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.card-button {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: #ff6b6b;
+    color: #fff;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.card-button:hover {
+    background-color: #ff4c4c;
+}
+
 h1 {
     font-size: 2.5rem;
     margin-bottom: 20px;
     letter-spacing: 2px;
     color: #fff;
-}
-
-p {
-    font-size: 1rem;
-    margin-bottom: 20px;
-    color: #ddd;
-}
-
-label {
-    display: block;
-    font-size: 1rem;
-    margin-bottom: 10px;
-    color: #ddd;
-    text-align: left;
-}
-
-input[type="text"],
-input[type="password"],
-input[type="email"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: rgba(255, 255, 255, 0.3);
-    color: #fff;
-    font-size: 1rem;
-}
-
-input[type="text"]::placeholder,
-input[type="password"]::placeholder,
-input[type="email"]::placeholder {
-    color: #bbb;
-}
-
-input:focus {
-    outline: none;
-    border: 1px solid #ff6b6b;
-    background-color: rgba(255, 255, 255, 0.5);
-}
-
-button {
-    display: inline-block;
-    padding: 10px 20px;
-    border-radius: 25px;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    border: none;
-}
-
-button[type="submit"] {
-    background-color: #ff6b6b;
-    color: #fff;
-}
-
-button[type="submit"]:hover {
-    background-color: #ff4c4c;
-}
-
-button a {
-    color: inherit;
-    text-decoration: none;
-}
-
-button a:hover {
-    text-decoration: none;
-}
-
-.btn-primary {
-    display: inline-block;
-    text-decoration: none;
-    padding: 10px 20px;
-    border-radius: 25px;
-    font-size: 1rem;
-    font-weight: bold;
-    background-color: #ff6b6b;
-    color: #fff;
-    margin-bottom: 20px;
-    transition: background-color 0.3s ease;
-}
-
-.btn-primary:hover {
-    background-color: #ff4c4c;
-}
-
-a {
-    color: #1dd1a1;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-a:hover {
-    color: #10ac84;
-}
-
-p a {
-    color: #1dd1a1;
-}
-
-p a:hover {
-    color: #10ac84;
 }

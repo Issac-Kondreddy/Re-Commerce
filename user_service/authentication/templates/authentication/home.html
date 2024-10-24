@@ -4,17 +4,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Home</title>
     <link rel="stylesheet" type="text/css" href="{% static 'authentication/styles.css' %}">
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome, {{ user.first_name }} {{ user.last_name }}!</h1>
 
-        <form method="POST" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <button type="submit">Logout</button>
-        </form>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <h2>MySite</h2>
+        </div>
+        <div class="nav-links">
+            <!-- Profile Icon -->
+            <a href="{% url 'profile' %}" class="profile-icon">
+                <i class="fas fa-user-circle"></i>
+            </a>
+
+            <!-- Logout Icon -->
+            <form method="POST" action="{% url 'logout' %}" class="logout-form">
+                {% csrf_token %}
+                <button type="submit" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </form>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Welcome, {{ user.username }}!</h1>
+
+        <!-- Card Container -->
+        <div class="card-container">
+
+            <!-- Profile Card -->
+            <div class="card">
+                {% if user.userprofile.profile_picture %}
+                <img class="profile-picture" src="{{ user.userprofile.profile_picture.url }}" alt="Profile Picture">
+                {% else %}
+                <img src="{% static 'authentication/default-profile.png' %}" alt="Default Profile Picture">
+                {% endif %}
+                <div class="card-title">Profile</div>
+                <a href="{% url 'profile' %}" class="card-button">Manage Profile</a>
+            </div>
+
+        </div>
     </div>
+
 </body>
 </html>

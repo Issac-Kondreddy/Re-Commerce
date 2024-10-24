@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',  # Enable social logins if required
     'allauth.socialaccount.providers.google',  # Google OAuth provider
     "verify_email.apps.VerifyEmailConfig",  # Email verification app
+    'phonenumber_field',
 ]
 
 # OAuth2 settings for Google
@@ -109,7 +110,8 @@ DATABASES = {
     }
 }
 
-
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {

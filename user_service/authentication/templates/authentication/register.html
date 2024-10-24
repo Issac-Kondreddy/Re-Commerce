@@ -11,9 +11,11 @@
 <body>
     <div class="container">
         <h1>Sign Up</h1>
+        {% if not test_mode %}
         <a href="{% provider_login_url 'google' %}" class="btn-google">
             Login with Google
         </a>
+        {% endif %}
         <form method="POST" action="{% url 'register' %}">
             {% csrf_token %}
             {{ form.as_p }}

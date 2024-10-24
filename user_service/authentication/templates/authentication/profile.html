@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'authentication/profile.css' %}">
+    <title>Profile</title>
+</head>
+<body>
+    <h1>Your Profile</h1>
+    
+    <h2>Update Profile Information</h2>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% if user.userprofile.profile_picture %}
+    <img class="profile-picture" src="{{ user.userprofile.profile_picture.url }}" alt="Profile Picture">
+{% else %}
+    <img class="profile-picture" src="{% static 'authentication/default-profile.jpg' %}" alt="Default Profile Picture">
+{% endif %}
+    <div>
+        <label for="first_name">First Name:</label>
+        {{ form.first_name }}
+    </div>
+    <div>
+        <label for="last_name">Last Name:</label>
+        {{ form.last_name }}
+    </div>
+    <div>
+        <label for="dob">Date of Birth:</label>
+        {{ form.dob }}
+    </div>
+    <div>
+        <label for="address">Address:</label>
+        {{ form.address }}
+    </div>
+    <div>
+        <label for="phone_number">Phone Number:</label>
+        {{ form.phone_number }}
+    </div>
+    <div>
+        <label for="gender">Gender:</label>
+        {{ form.gender }}
+    </div>
+    <div>
+        <label for="profile_picture">Profile Picture:</label>
+        {{ form.profile_picture }}
+    </div>
+    <button type="submit">Update Profile</button>
+</form>
+
+
+    <a href="{% url 'home' %}">Back to Home</a>
+</body>
+</html>
