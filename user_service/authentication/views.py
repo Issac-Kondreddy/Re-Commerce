@@ -13,6 +13,7 @@ from django.contrib.auth.decorators import login_required
 from .models import UserProfile
 from .forms import UserProfileForm
 from django.db.models import ObjectDoesNotExist
+from django.contrib import messages
 
 # Register View with Email Verification
 def register(request):
@@ -73,44 +74,22 @@ def logout_user(request):
     return redirect('login')
 
 @login_required
-def manage_profile(request):
-    user = request.user
-    try:
-        profile = user.userprofile  # Check if profile exists
-    except UserProfile.DoesNotExist:
-        profile = None  # If profile doesn't exist, leave it as None
-
-    if request.method == 'POST':
-        form = UserProfileForm(request.POST, request.FILES, instance=profile)
-        if form.is_valid():
-            user_profile = form.save(commit=False)
-            user_profile.user = user  # Associate the profile with the logged-in user
-            user_profile.save()
-            return redirect('profile')  # Redirect after successful update
-    else:
-        form = UserProfileForm(instance=profile)
-
-    return render(request, 'authentication/manage_profile.html', {'form': form})
-
-
-@login_required
-def dashboard(request):
-    return render(request, 'authentication/dashboard.html')
-
-@login_required
 def profile_view(request):
     try:
-        # Try to get the user's profile
+        # Get or create the user's profile
         user_profile = request.user.userprofile
-    except ObjectDoesNotExist:
-        # If the user does not have a profile, create one
-        user_profile = UserProfile.objects.create(user=request.user)
+    except UserProfile.DoesNotExist:
+        # If the profile doesn't exist, create it
+        user_profile = UserProfile(user=request.user)
 
     if request.method == 'POST':
         form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
         if form.is_valid():
-            form.save()
-            return redirect('profile')  # Redirect after saving the form to avoid resubmission
+            form.save()  # Save the profile data
+            messages.success(request, 'Profile updated successfully!')  # Success message
+            return redirect('profile')
+        else:
+            messages.error(request, 'Error updating your profile.')
     else:
         form = UserProfileForm(instance=user_profile)
 

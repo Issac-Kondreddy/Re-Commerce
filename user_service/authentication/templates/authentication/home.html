@@ -13,9 +13,11 @@
     <!-- Navbar -->
     <nav class="navbar">
         <div class="logo">
-            <h2>MySite</h2>
+            <h2>ReCommerce</h2>
         </div>
         <div class="nav-links">
+            <p>Welcome, {{ user.username }}!<p>
+            
             <!-- Profile Icon -->
             <a href="{% url 'profile' %}" class="profile-icon">
                 <i class="fas fa-user-circle"></i>
@@ -30,26 +32,6 @@
             </form>
         </div>
     </nav>
-
-    <div class="container">
-        <h1>Welcome, {{ user.username }}!</h1>
-
-        <!-- Card Container -->
-        <div class="card-container">
-
-            <!-- Profile Card -->
-            <div class="card">
-                {% if user.userprofile.profile_picture %}
-                <img class="profile-picture" src="{{ user.userprofile.profile_picture.url }}" alt="Profile Picture">
-                {% else %}
-                <img src="{% static 'authentication/default-profile.png' %}" alt="Default Profile Picture">
-                {% endif %}
-                <div class="card-title">Profile</div>
-                <a href="{% url 'profile' %}" class="card-button">Manage Profile</a>
-            </div>
-
-        </div>
-    </div>
 
 </body>
 </html>
