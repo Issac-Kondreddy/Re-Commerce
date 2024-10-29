@@ -5,22 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <title>Home</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'authentication/styles.css' %}">
+    <title>Home - ReCommerce</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'authentication/profile.css' %}">
 </head>
 <body>
-
     <!-- Navbar -->
     <nav class="navbar">
         <div class="logo">
             <h2>ReCommerce</h2>
         </div>
         <div class="nav-links">
-            <p>Welcome, {{ user.username }}!<p>
-            
-            <!-- Profile Icon -->
+            <!-- Profile Picture or Default Icon -->
             <a href="{% url 'profile' %}" class="profile-icon">
-                <i class="fas fa-user-circle"></i>
+                {% if user.userprofile.profile_picture %}
+                    <img src="{{ user.userprofile.profile_picture.url }}" alt="Profile Picture" class="navbar-profile-picture">
+                {% else %}
+                    <i class="fas fa-user-circle"></i>
+                {% endif %}
             </a>
 
             <!-- Logout Icon -->
@@ -33,5 +34,23 @@
         </div>
     </nav>
 
+    <!-- Main Container -->
+    <div class="container">
+        <h1>Welcome, {{ user.username }}!</h1>
+        <!-- Card Container -->
+        <div class="card-container">
+            <!-- Shop Card -->
+            <div class="card">
+                <div class="card-title">Shop</div>
+                <p>Browse our catalog of products and start shopping!</p>
+            </div>
+
+            <!-- Orders Card -->
+            <div class="card">
+                <div class="card-title">Orders</div>
+                <p>View your previous orders and track your purchases.</p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

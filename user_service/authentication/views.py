@@ -75,22 +75,18 @@ def logout_user(request):
 
 @login_required
 def profile_view(request):
-    try:
-        # Get or create the user's profile
-        user_profile = request.user.userprofile
-    except UserProfile.DoesNotExist:
-        # If the profile doesn't exist, create it
-        user_profile = UserProfile(user=request.user)
+    # Create a profile for the user if it doesn't exist
+    user_profile, created = UserProfile.objects.get_or_create(user=request.user)
 
     if request.method == 'POST':
         form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
         if form.is_valid():
-            form.save()  # Save the profile data
-            messages.success(request, 'Profile updated successfully!')  # Success message
+            form.save()
+            messages.success(request, 'Profile updated successfully!')
             return redirect('profile')
         else:
             messages.error(request, 'Error updating your profile.')
     else:
         form = UserProfileForm(instance=user_profile)
 
-    return render(request, 'authentication/profile.html', {'form': form})
+    return render(request, 'authentication/profile.html', {'form': form, 'user_profile': user_profile})
