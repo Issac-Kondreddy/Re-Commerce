@@ -31,9 +31,11 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',  # Enable social logins if required
     'allauth.socialaccount.providers.google',  # Google OAuth provider
-    "verify_email.apps.VerifyEmailConfig",  # Email verification app
+    # "verify_email.apps.VerifyEmailConfig",  # Email verification app
     'phonenumber_field',
+    'verify_email',
 ]
+
 
 # OAuth2 settings for Google
 SOCIALACCOUNT_PROVIDERS = {
@@ -45,6 +47,7 @@ SOCIALACCOUNT_PROVIDERS = {
         'AUTH_PARAMS': {
             'access_type': 'online',
         },
+        'AUTO_SIGNUP': False,
     }
 }
 
@@ -78,7 +81,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'allauth.account.middleware.AccountMiddleware', 
 ]
 
 ROOT_URLCONF = "user_service.urls"

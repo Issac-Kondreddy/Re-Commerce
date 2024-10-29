@@ -13,3 +13,5 @@ class UserProfile(models.Model):
     gender = models.CharField(max_length=10, blank=True)
     phone_number = PhoneNumberField(blank=True, null=True)  # Allowing null and blank
 
+    def __str__(self):
+            return f"{self.user.username}'s Profile"

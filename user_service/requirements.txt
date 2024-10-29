@@ -1,0 +1,21 @@
+# Django-related libraries
+Django==4.2.0
+djangorestframework==3.14.0
+django-allauth==0.54.0  # for Google OAuth and other social auth integrations
+django-phonenumber-field==7.0.0  # for handling phone numbers
+
+# Additional dependencies
+Pillow==9.2.0  # for image handling in Django (e.g., profile pictures)
+
+# Database dependencies
+psycopg2-binary==2.9.6  # for PostgreSQL if using it (remove if not required)
+
+# DRF and token authentication
+djangorestframework-simplejwt==5.2.2  # optional, for JWT auth if needed
+
+verify-email
+
+# Optional debugging tools
+django-debug-toolbar==4.0  # helpful during development
+phonenumbers
+gunicorn==20.1.0  # or the latest stable version
