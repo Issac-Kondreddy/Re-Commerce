@@ -15,7 +15,8 @@ def load_products_from_csv(file_path):
                 name=row['name'],
                 description=row['description'],
                 price=float(row['price']),
-                stock=int(row['stock'])
+                stock=int(row['stock']),
+                category=row['category']
             )
     print("Products loaded successfully!")
 

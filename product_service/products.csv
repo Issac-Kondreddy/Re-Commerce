@@ -1,4 +1,134 @@
-name,description,price,stock
-Smartphone X,Latest smartphone with cutting-edge features,999.99,50
-Wireless Earbuds,High-quality noise-canceling earbuds,199.99,100
-Laptop Pro,Powerful laptop for work and gaming,1499.99,30
+name,description,price,stock,category
+Smartphone X,Latest smartphone with cutting-edge features,999.99,50,Electronics
+Wireless Earbuds,High-quality noise-canceling earbuds,199.99,100,Electronics
+Laptop Pro,Powerful laptop for work and gaming,1499.99,30,Electronics
+Smart TV 55",4K Ultra HD Smart TV with HDR,799.99,20,Electronics
+Gaming Console,Next-gen gaming console for immersive play,499.99,40,Electronics
+Bluetooth Speaker,Portable speaker with deep bass,129.99,80,Electronics
+4K Drone,High-resolution drone with advanced stabilization,1099.99,15,Electronics
+Smartwatch,Zippy smartwatch with fitness tracking,299.99,70,Electronics
+DSLR Camera,Professional DSLR with 24MP resolution,899.99,25,Electronics
+Wireless Charger,Fast wireless charging pad,39.99,200,Electronics
+Electric Toothbrush,Rechargeable toothbrush with smart sensors,79.99,120,Appliances
+Air Fryer,Compact air fryer for healthy frying,149.99,60,Appliances
+Microwave Oven,Countertop microwave with quick heat options,199.99,40,Appliances
+Blender,High-speed blender for smoothies and shakes,99.99,90,Appliances
+Vacuum Cleaner,Robotic vacuum with multiple cleaning modes,299.99,50,Appliances
+Dishwasher,Energy-efficient dishwasher with quiet operation,649.99,15,Appliances
+Refrigerator,Double-door fridge with freezer,999.99,10,Appliances
+Washing Machine,Front-loading washing machine,749.99,20,Appliances
+Coffee Maker,Single-serve coffee maker with milk frother,89.99,100,Appliances
+Toaster,4-slice toaster with adjustable browning,59.99,70,Appliances
+Men's Leather Jacket,Classic leather jacket for men,199.99,25,Clothing
+Women's Parka,Waterproof winter parka with hood,149.99,30,Clothing
+Unisex Hoodie,Comfortable fleece hoodie,39.99,80,Clothing
+Denim Jeans,Slim-fit denim jeans,49.99,60,Clothing
+Sneakers,Stylish and comfortable sneakers,89.99,50,Clothing
+Running Shoes,Breathable running shoes for men and women,79.99,70,Clothing
+T-shirt,Graphic cotton t-shirt,19.99,200,Clothing
+Sweatpants,Relaxed-fit sweatpants,29.99,90,Clothing
+Summer Dress,Lightweight dress perfect for summer,59.99,40,Clothing
+Wool Sweater,Soft woolen sweater,69.99,30,Clothing
+Men's Formal Shirt,Slim-fit formal shirt for office wear,39.99,50,Clothing
+Women's Blouse,Chic blouse for casual or work settings,34.99,40,Clothing
+Baseball Cap,Adjustable baseball cap,14.99,100,Clothing
+Ankle Socks,Pack of 5 ankle socks,9.99,200,Clothing
+Yoga Pants,High-waisted yoga pants,24.99,80,Clothing
+Leather Belt,Genuine leather belt,19.99,100,Clothing
+Bathrobe,Soft and plush bathrobe,49.99,30,Clothing
+Kids' Pajamas,Cotton pajama set for kids,29.99,60,Clothing
+Formal Trousers,Straight-cut formal trousers,39.99,40,Clothing
+Smart Light Bulb,Voice-controlled LED smart bulb,19.99,150,Electronics
+Electric Kettle,Stainless steel kettle with quick boil,29.99,90,Appliances
+Iron,Steam iron with anti-drip system,39.99,70,Appliances
+Hair Dryer,Compact and powerful hair dryer,49.99,80,Appliances
+Air Conditioner,Portable AC unit with remote control,299.99,20,Appliances
+Ceiling Fan,Energy-efficient ceiling fan,79.99,40,Appliances
+Heater,Electric space heater for home use,59.99,50,Appliances
+Dehumidifier,Quiet dehumidifier with digital display,199.99,15,Appliances
+Men's Watch,Classic wristwatch with leather strap,99.99,60,Accessories
+Women's Handbag,Stylish leather handbag,79.99,30,Accessories
+Sunglasses,Polarized UV-protective sunglasses,49.99,80,Accessories
+Fitness Tracker,Waterproof fitness band with heart rate monitor,69.99,90,Electronics
+Gaming Mouse,Ergonomic mouse with RGB lighting,39.99,100,Electronics
+Mechanical Keyboard,Gaming keyboard with tactile switches,79.99,60,Electronics
+Smart Doorbell,Wi-Fi-enabled video doorbell with app alerts,149.99,30,Electronics
+Router,High-speed wireless router,99.99,40,Electronics
+Wireless Headphones,Over-ear noise-canceling headphones,249.99,25,Electronics
+Tablet,10-inch tablet with high-resolution display,329.99,50,Electronics
+Action Camera,Waterproof action cam for extreme sports,199.99,40,Electronics
+3D Printer,Desktop 3D printer with precision features,499.99,10,Electronics
+Men's Sneakers,Comfortable casual sneakers,69.99,70,Clothing
+Women's Flats,Stylish flat shoes for casual wear,39.99,50,Clothing
+Scarf,Soft wool scarf,19.99,100,Clothing
+Leather Gloves,Insulated leather gloves,29.99,40,Clothing
+Backpack,Waterproof travel backpack,49.99,70,Accessories
+Laptop Bag,Durable laptop bag with multiple compartments,59.99,60,Accessories
+Necklace,Gold-plated pendant necklace,29.99,90,Accessories
+Men's Wallet,Genuine leather wallet,24.99,80,Accessories
+Wireless Mouse,Compact wireless mouse for laptops,19.99,120,Electronics
+Electric Grill,Indoor electric grill for healthy cooking,99.99,40,Appliances
+Water Purifier,Compact water purifier with filter,149.99,20,Appliances
+Men's Polo Shirt,Casual polo shirt for men,24.99,90,Clothing
+Women's Cardigan,Open-front cardigan,34.99,50,Clothing
+Sandals,Comfortable summer sandals,29.99,100,Clothing
+Digital Picture Frame,Wi-Fi-enabled digital photo frame,129.99,30,Electronics
+Cordless Vacuum,Lightweight cordless vacuum cleaner,199.99,25,Appliances
+Electric Blanket,Heated blanket with temperature settings,69.99,30,Appliances
+Juicer,Cold press juicer for fresh juice,149.99,40,Appliances
+Men's Chinos,Slim-fit chinos for casual and formal wear,34.99,50,Clothing
+Beanie,Warm knit beanie,14.99,70,Clothing
+Men's Boots,Leather boots for all-weather,99.99,25,Clothing
+Women's Heels,Stylish high heels for formal occasions,59.99,30,Clothing
+Rain Jacket,Waterproof rain jacket with hood,49.99,40,Clothing
+Sofa Cover,Stretchable fabric sofa cover,39.99,20,Home Decor
+Weighted Blanket,Comfort blanket for stress relief,89.99,30,Home Decor
+Cutlery Set,Stainless steel cutlery set (16 pieces),29.99,80,Kitchen
+Dinnerware Set,Porcelain dinnerware set for 6 people,79.99,20,Kitchen
+Men's Suit,Formal suit for business occasions,199.99,10,Clothing
+Electric Scooter,Lightweight electric scooter for adults,299.99,15,Electronics
+Women's Winter Boots,Insulated boots for cold weather,89.99,25,Clothing
+Men's Running Shorts,Breathable running shorts,19.99,60,Clothing
+Women's Leggings,High-waisted leggings for comfort,24.99,70,Clothing
+Pressure Cooker,Multi-functional electric pressure cooker,99.99,30,Appliances
+Electric Shaver,Rechargeable electric shaver for a close shave,59.99,40,Appliances
+Food Processor,Compact food processor with multiple blades,129.99,25,Appliances
+Steam Mop,Easy-to-use steam mop for floors,69.99,50,Appliances
+Popcorn Maker,Retro-style hot air popcorn maker,39.99,70,Appliances
+Bread Maker,Automatic bread maker with multiple settings,129.99,20,Appliances
+Men's Puffer Jacket,Insulated winter puffer jacket,89.99,30,Clothing
+Women's Skirt,Flowy midi skirt with floral pattern,29.99,40,Clothing
+Men's Slippers,Comfortable memory foam slippers,19.99,80,Clothing
+Sports Bra,High-impact sports bra,24.99,50,Clothing
+Bluetooth Headset,Wireless in-ear headset with microphone,39.99,100,Electronics
+USB Flash Drive,64GB high-speed USB drive,14.99,150,Electronics
+Portable Charger,10000mAh portable power bank,29.99,80,Electronics
+Mini Projector,Compact HD projector for home entertainment,149.99,20,Electronics
+Portable Air Compressor,Compact tire inflator for car tires,49.99,60,Automotive
+Camping Tent,4-person waterproof camping tent,99.99,15,Outdoor
+Sleeping Bag,Cold-weather sleeping bag,49.99,40,Outdoor
+Portable BBQ Grill,Charcoal grill for outdoor cooking,79.99,25,Outdoor
+Hammock,Outdoor hammock with stand,59.99,30,Outdoor
+Fishing Rod,Telescopic fishing rod and reel combo,39.99,50,Outdoor
+Yoga Mat,Thick non-slip yoga mat,19.99,100,Fitness
+Kettlebell,Adjustable kettlebell for strength training,49.99,20,Fitness
+Exercise Bike,Indoor stationary exercise bike,199.99,10,Fitness
+Treadmill,Foldable treadmill for home use,499.99,5,Fitness
+Golf Set,Complete golf club set with bag,299.99,10,Sports
+Basketball,Official size and weight basketball,19.99,80,Sports
+Soccer Ball,High-quality soccer ball for practice,24.99,100,Sports
+Tennis Racket,Lightweight tennis racket for beginners,29.99,60,Sports
+Dumbbell Set,Adjustable dumbbell set with stand,149.99,15,Fitness
+Punching Bag,Heavy-duty punching bag with gloves,99.99,20,Fitness
+Car Vacuum Cleaner,Portable vacuum cleaner for cars,29.99,70,Automotive
+Car Cover,All-weather car cover,49.99,40,Automotive
+Jump Starter,Portable car battery jump starter,89.99,20,Automotive
+Roof Rack,Universal roof rack for cars,119.99,10,Automotive
+Men's Cargo Pants,Durable cargo pants with multiple pockets,39.99,60,Clothing
+Women's Sweatshirt,Cozy fleece sweatshirt,34.99,70,Clothing
+Children's Rain Boots,Waterproof boots for kids,24.99,50,Clothing
+Kids' Backpack,Colorful school backpack for children,19.99,90,Accessories
+Picnic Basket,Wicker picnic basket with accessories,49.99,15,Outdoor
+Pet Bed,Soft and cozy bed for pets,29.99,40,Pet Supplies
+Cat Scratching Post,Sisal rope scratching post for cats,19.99,50,Pet Supplies
+Dog Leash,Retractable dog leash with lock button,14.99,100,Pet Supplies
