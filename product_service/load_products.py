@@ -1,7 +1,7 @@
 import csv
 import os
 import django
-from .models import Product  # Replace 'myproductapp' with your app name
+from products.models import Product  # Replace 'myproductapp' with your app name
 
 # Set up Django environment
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "product_service.settings") 
