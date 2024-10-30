@@ -91,4 +91,3 @@ def profile_view(request):
 
     return render(request, 'authentication/profile.html', {'form': form, 'user_profile': user_profile})
 
-

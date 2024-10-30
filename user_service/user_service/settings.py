@@ -31,9 +31,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',  # Enable social logins if required
     'allauth.socialaccount.providers.google',  # Google OAuth provider
-    # "verify_email.apps.VerifyEmailConfig",  # Email verification app
-    'phonenumber_field',
-    'verify_email',
+    "verify_email.apps.VerifyEmailConfig",  # Email verification app
+    'phonenumber_field'
 ]
 
 
@@ -47,9 +46,10 @@ SOCIALACCOUNT_PROVIDERS = {
         'AUTH_PARAMS': {
             'access_type': 'online',
         },
-        'AUTO_SIGNUP': False,
+        'OAUTH_PKCE_ENABLED': True,
     }
 }
+
 
 # Automatically log the user in after Google login/signup
 SOCIALACCOUNT_AUTO_SIGNUP = True

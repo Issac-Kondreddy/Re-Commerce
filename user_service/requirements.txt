@@ -1,21 +1,29 @@
-# Django-related libraries
-Django==4.2.0
+aiodns==3.2.0
+aiosmtpd==1.4.6
+asgiref==3.8.1
+atpublic==5.0
+attrs==24.2.0
+certifi==2024.8.30
+cffi==1.17.1
+charset-normalizer==3.4.0
+cryptography==43.0.3
+defusedxml==0.7.1
+Django==4.2
+django-allauth==0.54.0
+django-phonenumber-field==7.0.0
 djangorestframework==3.14.0
-django-allauth==0.54.0  # for Google OAuth and other social auth integrations
-django-phonenumber-field==7.0.0  # for handling phone numbers
-
-# Additional dependencies
-Pillow==9.2.0  # for image handling in Django (e.g., profile pictures)
-
-# Database dependencies
-psycopg2-binary==2.9.6  # for PostgreSQL if using it (remove if not required)
-
-# DRF and token authentication
-djangorestframework-simplejwt==5.2.2  # optional, for JWT auth if needed
-
-verify-email
-
-# Optional debugging tools
-django-debug-toolbar==4.0  # helpful during development
-phonenumbers
-gunicorn==20.1.0  # or the latest stable version
+djangorestframework-simplejwt==5.2.2
+idna==3.10
+oauthlib==3.2.2
+phonenumbers==8.13.48
+Pillow==9.2.0
+pycares==4.4.0
+pycparser==2.22
+PyJWT==2.9.0
+python3-openid==3.2.0
+pytz==2024.2
+requests==2.32.3
+requests-oauthlib==2.0.0
+sqlparse==0.5.1
+urllib3==2.2.3
+verify-email==2.4.3
