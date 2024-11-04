@@ -14,14 +14,14 @@ User = get_user_model()
 @method_decorator(csrf_exempt, name='dispatch')
 class AddToCartView(View):
     def post(self, request):
-        # Mock user for testing purposes
+        # Temporary mock user for testing
         user, _ = User.objects.get_or_create(username="testuser")
         cart, _ = Cart.objects.get_or_create(user=user)
 
-        # Mock product data for testing
+        # Ensure a default price for the mock product
         product_id = int(request.POST.get("product_id", 1))
         product_name = "Sample Product"
-        product_price = 10.00
+        product_price = float(request.POST.get("product_price", 10.00))  # Default price set to 10.00 if not provided
         quantity = int(request.POST.get("quantity", 1))
 
         # Check if item is already in the cart
@@ -32,12 +32,10 @@ class AddToCartView(View):
         )
 
         if not item_created:
-            # Update quantity if item is already in the cart
             cart_item.quantity += quantity
             cart_item.save()
 
         return JsonResponse({"success": True, "message": "Item added to cart", "quantity": cart_item.quantity})
-
 
 @method_decorator(csrf_exempt, name='dispatch')  # Temporary CSRF exemption for testing
 class ViewCartView(View):
@@ -94,18 +92,18 @@ class PlaceOrderView(View):
     def post(self, request):
         # Temporary mock user
         user, _ = User.objects.get_or_create(username="testuser")
-        
+
         # Retrieve cart and items
         cart = Cart.objects.get(user=user)
         cart_items = cart.items.all()
-        
+
         # Calculate total order price
         total_price = sum(item.product_price * item.quantity for item in cart_items)
 
         # Create the order
         order = Order.objects.create(user=user, total_price=total_price)
 
-        # Add items to the order and clear cart
+        # Add items to the order
         for item in cart_items:
             OrderItem.objects.create(
                 order=order,
@@ -113,7 +111,7 @@ class PlaceOrderView(View):
                 product_price=item.product_price,
                 quantity=item.quantity
             )
-            item.delete()  # Remove item from cart
+            item.delete()  # Remove item from cartt
 
         # Send confirmation email
         send_mail(
@@ -124,3 +122,32 @@ class PlaceOrderView(View):
         )
 
         return JsonResponse({"success": True, "message": "Order placed successfully!", "order_id": order.id})
+
+@method_decorator(csrf_exempt, name='dispatch')
+class OrderHistoryView(View):
+    def get(self, request):
+        # Temporary mock user for testing
+        user = request.user if request.user.is_authenticated else User.objects.get(username="testuser")
+
+        # Retrieve all orders for the user
+        orders = Order.objects.filter(user=user).order_by('-created_at')
+        
+        # Structure the order data with items and total price
+        order_history = [
+            {
+                "order_id": order.id,
+                "created_at": order.created_at,
+                "total_price": float(order.total_price),
+                "items": [
+                    {
+                        "product_name": item.product_name,
+                        "product_price": float(item.product_price),
+                        "quantity": item.quantity,
+                        "total_price": float(item.product_price * item.quantity)
+                    } for item in order.items.all()
+                ]
+            }
+            for order in orders
+        ]
+
+        return JsonResponse({"success": True, "orders": order_history})
