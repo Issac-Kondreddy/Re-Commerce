@@ -1,22 +1,23 @@
+# settings.py
+
+import environ
 from pathlib import Path
 import os
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Base directory path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Load environment variables from .env
+env = environ.Env(
+    DEBUG=(bool, False)
+)
+environ.Env.read_env(BASE_DIR / ".env")
+# Basic settings
+SECRET_KEY = env("DJANGO_SECRET_KEY")
+DEBUG = env("DEBUG")
+ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
-# Quick-start development settings - unsuitable for production
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-j%vc)n=o1ktuqjv!o(gg7+($tgh12=!v0sodl3%j^sxca^l6wg"
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True  # Set to False in production
-
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
- # Add your domain or IP address here in production
-
-
-# Application definition
+# Installed apps
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -24,74 +25,38 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "authentication",  # Your custom authentication app
+    "authentication",
     "rest_framework",
-    "rest_framework.authtoken",  # DRF Token authentication
-    'django.contrib.sites',  # Required by Django Allauth
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',  # Enable social logins if required
-    'allauth.socialaccount.providers.google',  # Google OAuth provider
-    "verify_email.apps.VerifyEmailConfig",  # Email verification app
-    'phonenumber_field'
+    "rest_framework.authtoken",
+    "django.contrib.sites",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.google",
+    "verify_email.apps.VerifyEmailConfig",
+    "phonenumber_field",
 ]
 
-
-# OAuth2 settings for Google
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'SCOPE': [
-            'profile',
-            'email',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        },
-        'OAUTH_PKCE_ENABLED': False,
-    }
-}
-
-
-# Automatically log the user in after Google login/signup
-SOCIALACCOUNT_AUTO_SIGNUP = True
-ACCOUNT_EMAIL_VERIFICATION = 'none'  # Skip email verification for social login
-SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
-SOCIALACCOUNT_LOGIN_ON_GET = True  # Automatically log in after returning from Google
-
-
-# Redirect URLs after login and signup
-LOGIN_REDIRECT_URL = '/authentication/home/' # Redirect to home after login
-ACCOUNT_LOGOUT_REDIRECT_URL = '/authentication/login/'  # Redirect to login page after logout
-LOGIN_URL = '/authentication/login/'  # Redirect to login page if not authenticated
-
-# Django Rest Framework Settings
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
-    ],
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-    ],
-}
-
+# Middleware
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'allauth.account.middleware.AccountMiddleware',  # Add this line
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-
+# URL configuration
 ROOT_URLCONF = "user_service.urls"
 
+# Templates
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / 'Templates'],  # Set your custom templates directory
+        "DIRS": [BASE_DIR / "Templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -104,8 +69,8 @@ TEMPLATES = [
     },
 ]
 
+# WSGI
 WSGI_APPLICATION = "user_service.wsgi.application"
-
 
 # Database
 DATABASES = {
@@ -115,78 +80,73 @@ DATABASES = {
     }
 }
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-# Password validation
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
-]
-
-# Internationalization
-LANGUAGE_CODE = "en-us"
-TIME_ZONE = "UTC"
-USE_I18N = True
-USE_TZ = True
-
-# Static files (CSS, JavaScript, Images)
+# Static and media files
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [
-    BASE_DIR / "static",  # Static files directory
-]
-STATIC_ROOT = BASE_DIR / "staticfiles"  # Collect static files in production
+STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR / "staticfiles"
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-# Default primary key field type
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+# Authentication and Allauth configuration
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
 
+# OAuth2 settings for Google
+SOCIALACCOUNT_PROVIDERS = {
+    "google": {
+        "SCOPE": ["profile", "email"],
+        "AUTH_PARAMS": {"access_type": "online"},
+        "OAUTH_PKCE_ENABLED": False,
+    }
+}
 
-# Security settings for CSRF and session management
-CSRF_COOKIE_SAMESITE = 'Lax'
-SESSION_COOKIE_SAMESITE = 'Strict'
-CSRF_COOKIE_HTTPONLY = False  # False since we might grab it via universal-cookies
+# Automatic login after Google login/signup
+SOCIALACCOUNT_AUTO_SIGNUP = True
+ACCOUNT_EMAIL_VERIFICATION = "none"
+SOCIALACCOUNT_EMAIL_VERIFICATION = "none"
+SOCIALACCOUNT_LOGIN_ON_GET = True
+
+# Redirects
+LOGIN_REDIRECT_URL = "/authentication/home/"
+ACCOUNT_LOGOUT_REDIRECT_URL = "/authentication/login/"
+LOGIN_URL = "/authentication/login/"
+
+# Django Rest Framework
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ],
+}
+
+# CSRF and Session Management
+CSRF_COOKIE_SAMESITE = "Lax"
+SESSION_COOKIE_SAMESITE = "Strict"
+CSRF_COOKIE_HTTPONLY = False
 SESSION_COOKIE_HTTPONLY = True
 
-# Use the following settings in production:
-# CSRF_COOKIE_SECURE = True
-# SESSION_COOKIE_SECURE = True
-
-# Email configuration for sending email verifications
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+# Email Configuration for Email Verification
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'issackondreddy@gmail.com'  # Replace with your email
-EMAIL_HOST_PASSWORD = 'qhvm yuqz dune qywj'  # Replace with your app password
-
-DEFAULT_FROM_EMAIL = 'issackondreddy@gmail.com'  
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # Sites Framework
-SITE_ID = 2  # Required for Django Allauth
+SITE_ID = 2
 
-# Email verification custom settings (Optional)
+# Email verification settings
 HTML_MESSAGE_TEMPLATE = "authentication/email_message.html"
 VERIFICATION_SUCCESS_TEMPLATE = "authentication/success.html"
 VERIFICATION_FAILED_TEMPLATE = "authentication/failed.html"
-
-# Expire email verification link after 1 day
 EXPIRE_AFTER = "1d"
-
-# Allow the user to resend the email 3 times before limiting
 MAX_RETRIES = 3
 
-# Authentication backends for both regular and social login
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
-)
-
+# Default primary key field type
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
