@@ -1,16 +1,13 @@
-import requests
-
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
     OAuth2LoginView,
 )
 
-from .provider import BasecampProvider
-
 
 class BasecampOAuth2Adapter(OAuth2Adapter):
-    provider_id = BasecampProvider.id
+    provider_id = "basecamp"
     access_token_url = (
         "https://launchpad.37signals.com/authorization/token?type=web_server"  # noqa
     )
@@ -19,7 +16,9 @@ class BasecampOAuth2Adapter(OAuth2Adapter):
 
     def complete_login(self, request, app, token, **kwargs):
         headers = {"Authorization": "Bearer {0}".format(token.token)}
-        resp = requests.get(self.profile_url, headers=headers)
+        resp = (
+            get_adapter().get_requests_session().get(self.profile_url, headers=headers)
+        )
         extra_data = resp.json()
         return self.get_provider().sociallogin_from_response(request, extra_data)
 

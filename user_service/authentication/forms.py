@@ -16,9 +16,12 @@ class UserProfileForm(forms.ModelForm):
     )
 
     def clean_profile_picture(self):
-        profile_picture = self.cleaned_data.get("profile_picture", False)
-        if profile_picture:
-            if profile_picture.content_type not in ["image/jpeg", "image/png"]:
+        profile_picture = self.cleaned_data.get("profile_picture")
+        
+        # Check for file content_type in self.files
+        if profile_picture and 'profile_picture' in self.files:
+            content_type = self.files['profile_picture'].content_type
+            if content_type not in ["image/jpeg", "image/png"]:
                 raise ValidationError("Only JPEG or PNG files are allowed.")
         return profile_picture
 
@@ -35,7 +38,7 @@ class UserProfileForm(forms.ModelForm):
 
 
 class CustomUserCreationForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput)
+    password = forms.CharField(widget=forms.PasswordInput, help_text="Enter a secure password.")
 
     class Meta:
         model = User
@@ -43,10 +46,7 @@ class CustomUserCreationForm(forms.ModelForm):
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.set_password(self.cleaned_data['password'])
+        user.set_password(self.cleaned_data['password'])  # Encrypts the password
         if commit:
             user.save()
         return user
-
-
-

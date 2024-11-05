@@ -1,16 +1,13 @@
-import requests
-
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
     OAuth2LoginView,
 )
 
-from .provider import HubicProvider
-
 
 class HubicOAuth2Adapter(OAuth2Adapter):
-    provider_id = HubicProvider.id
+    provider_id = "hubic"
     access_token_url = "https://api.hubic.com/oauth/token"
     authorize_url = "https://api.hubic.com/oauth/auth"
     profile_url = "https://api.hubic.com/1.0/account"
@@ -18,9 +15,13 @@ class HubicOAuth2Adapter(OAuth2Adapter):
 
     def complete_login(self, request, app, token, **kwargs):
         token_type = kwargs["response"]["token_type"]
-        resp = requests.get(
-            self.profile_url,
-            headers={"Authorization": "%s %s" % (token_type, token.token)},
+        resp = (
+            get_adapter()
+            .get_requests_session()
+            .get(
+                self.profile_url,
+                headers={"Authorization": "%s %s" % (token_type, token.token)},
+            )
         )
         extra_data = resp.json()
         return self.get_provider().sociallogin_from_response(request, extra_data)

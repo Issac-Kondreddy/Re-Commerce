@@ -1,13 +1,11 @@
-import requests
 from hashlib import md5
 
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
     OAuth2LoginView,
 )
-
-from .provider import OdnoklassnikiProvider
 
 
 USER_FIELDS = [
@@ -36,7 +34,7 @@ USER_FIELDS = [
 
 
 class OdnoklassnikiOAuth2Adapter(OAuth2Adapter):
-    provider_id = OdnoklassnikiProvider.id
+    provider_id = "odnoklassniki"
     access_token_url = "https://api.odnoklassniki.ru/oauth/token.do"
     authorize_url = "https://www.odnoklassniki.ru/oauth/authorize"
     profile_url = "https://api.odnoklassniki.ru/fb.do"
@@ -58,7 +56,9 @@ class OdnoklassnikiOAuth2Adapter(OAuth2Adapter):
         )
         data["sig"] = md5(("".join(check_list) + suffix).encode("utf-8")).hexdigest()
 
-        response = requests.get(self.profile_url, params=data)
+        response = (
+            get_adapter().get_requests_session().get(self.profile_url, params=data)
+        )
         extra_data = response.json()
         return self.get_provider().sociallogin_from_response(request, extra_data)
 

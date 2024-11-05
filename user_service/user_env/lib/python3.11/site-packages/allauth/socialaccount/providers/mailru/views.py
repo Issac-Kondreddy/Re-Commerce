@@ -1,17 +1,15 @@
-import requests
 from hashlib import md5
 
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
     OAuth2LoginView,
 )
 
-from .provider import MailRuProvider
-
 
 class MailRuOAuth2Adapter(OAuth2Adapter):
-    provider_id = MailRuProvider.id
+    provider_id = "mailru"
     access_token_url = "https://connect.mail.ru/oauth/token"
     authorize_url = "https://connect.mail.ru/oauth/authorize"
     profile_url = "http://www.appsmail.ru/platform/api"
@@ -28,7 +26,9 @@ class MailRuOAuth2Adapter(OAuth2Adapter):
         data["sig"] = md5(
             ("".join(param_list) + app.secret).encode("utf-8")
         ).hexdigest()
-        response = requests.get(self.profile_url, params=data)
+        response = (
+            get_adapter().get_requests_session().get(self.profile_url, params=data)
+        )
         extra_data = response.json()[0]
         return self.get_provider().sociallogin_from_response(request, extra_data)
 

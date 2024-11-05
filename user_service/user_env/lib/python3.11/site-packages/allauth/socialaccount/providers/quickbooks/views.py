@@ -1,16 +1,13 @@
-import requests
-
+from allauth.socialaccount.adapter import get_adapter
 from allauth.socialaccount.providers.oauth2.views import (
     OAuth2Adapter,
     OAuth2CallbackView,
     OAuth2LoginView,
 )
 
-from .provider import QuickBooksOAuth2Provider
-
 
 class QuickBooksOAuth2Adapter(OAuth2Adapter):
-    provider_id = QuickBooksOAuth2Provider.id
+    provider_id = "quickbooks"
     access_token_url = "https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer"
     authorize_url = "https://appcenter.intuit.com/connect/oauth2"
     profile_test = "https://sandbox-accounts.platform.intuit.com/v1/openid_connect/userinfo"  # NOQA
@@ -34,7 +31,7 @@ class QuickBooksOAuth2Adapter(OAuth2Adapter):
         }
         is_sandbox = self.get_provider().get_settings().get("SANDBOX", False)
         url = self.profile_test if is_sandbox else self.profile_url
-        resp = requests.get(url, headers=headers)
+        resp = get_adapter().get_requests_session().get(url, headers=headers)
         resp.raise_for_status()
         return resp.json()
 

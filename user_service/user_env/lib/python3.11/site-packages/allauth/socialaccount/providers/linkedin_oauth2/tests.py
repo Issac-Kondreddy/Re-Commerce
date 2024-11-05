@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
 from json import loads
 
-from django.test.client import RequestFactory
 from django.test.utils import override_settings
 
 from allauth.socialaccount.models import SocialAccount
@@ -16,9 +14,16 @@ class LinkedInOAuth2Tests(OAuth2TestsMixin, TestCase):
     provider_id = LinkedInOAuth2Provider.id
 
     def get_mocked_response(self):
-        return MockedResponse(
-            200,
-            """
+        return [
+            MockedResponse(
+                200,
+                """
+            {}
+            """,
+            ),
+            MockedResponse(
+                200,
+                """
 {
   "profilePicture": {
     "displayImage": "urn:li:digitalmediaAsset:12345abcdefgh-12abcd"
@@ -44,7 +49,11 @@ class LinkedInOAuth2Tests(OAuth2TestsMixin, TestCase):
   }
 }
 """,
-        )
+            ),
+        ]
+
+    def get_expected_to_str(self):
+        return "Raymond Penners"
 
     def test_data_to_str(self):
         data = {
@@ -60,7 +69,7 @@ class LinkedInOAuth2Tests(OAuth2TestsMixin, TestCase):
             "publicProfileUrl": "https://www.linkedin.com/in/johndoe",
         }
         acc = SocialAccount(extra_data=data, provider="linkedin_oauth2")
-        self.assertEqual(acc.get_provider_account().to_str(), "John Doe")
+        self.assertEqual(acc.get_provider_account().to_str(), "john@doe.org")
 
     def test_get_avatar_url_no_picture_setting(self):
         extra_data = """
@@ -536,5 +545,6 @@ class LinkedInOAuth2Tests(OAuth2TestsMixin, TestCase):
   "Id": "1234567"
 }
 """
-        provider = LinkedInOAuth2Provider(RequestFactory().get("/login"))
-        self.assertRaises(ProviderException, provider.extract_uid, loads(extra_data))
+        self.assertRaises(
+            ProviderException, self.provider.extract_uid, loads(extra_data)
+        )

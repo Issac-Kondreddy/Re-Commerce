@@ -9,11 +9,8 @@ from allauth.socialaccount.providers.oauth.views import (
     OAuthLoginView,
 )
 
-from .provider import FlickrProvider
-
 
 class FlickrAPI(OAuth):
-
     api_url = "https://api.flickr.com/services/rest"
 
     def get_user_info(self):
@@ -30,7 +27,7 @@ class FlickrAPI(OAuth):
 
 
 class FlickrOAuthAdapter(OAuthAdapter):
-    provider_id = FlickrProvider.id
+    provider_id = "flickr"
     request_token_url = "http://www.flickr.com/services/oauth/request_token"
     access_token_url = "http://www.flickr.com/services/oauth/access_token"
     authorize_url = "http://www.flickr.com/services/oauth/authorize"

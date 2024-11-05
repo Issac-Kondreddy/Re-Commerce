@@ -1,14 +1,12 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import, unicode_literals
-
-from allauth.socialaccount.providers import registry
-from allauth.socialaccount.tests import create_oauth2_tests
-from allauth.tests import MockedResponse
+from allauth.socialaccount.tests import OAuth2TestsMixin
+from allauth.tests import MockedResponse, TestCase
 
 from .provider import SalesforceProvider
 
 
-class SalesforceTests(create_oauth2_tests(registry.by_id(SalesforceProvider.id))):
+class SalesforceTests(OAuth2TestsMixin, TestCase):
+    provider_id = SalesforceProvider.id
+
     def get_mocked_response(
         self,
         last_name="Penners",
@@ -32,6 +30,9 @@ class SalesforceTests(create_oauth2_tests(registry.by_id(SalesforceProvider.id))
             is_app_installed="true",
         )
         return MockedResponse(200, userinfo)
+
+    def get_expected_to_str(self):
+        return "raymond.penners@gmail.com"
 
 
 USERINFO_RESPONSE = """

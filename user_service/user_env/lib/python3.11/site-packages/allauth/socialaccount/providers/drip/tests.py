@@ -5,7 +5,6 @@ from .provider import DripProvider
 
 
 class DripTests(OAuth2TestsMixin, TestCase):
-
     provider_id = DripProvider.id
 
     def get_mocked_response(self):
@@ -19,3 +18,6 @@ class DripTests(OAuth2TestsMixin, TestCase):
             }]
         }""",
         )
+
+    def get_expected_to_str(self):
+        return "john@acme.com"

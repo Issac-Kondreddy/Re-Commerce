@@ -1,11 +1,12 @@
-from allauth.socialaccount.providers import registry
-from allauth.socialaccount.tests import create_oauth2_tests
-from allauth.tests import MockedResponse
+from allauth.socialaccount.tests import OAuth2TestsMixin
+from allauth.tests import MockedResponse, TestCase
 
 from .provider import AsanaProvider
 
 
-class AsanaTests(create_oauth2_tests(registry.by_id(AsanaProvider.id))):
+class AsanaTests(OAuth2TestsMixin, TestCase):
+    provider_id = AsanaProvider.id
+
     def get_mocked_response(self):
         return MockedResponse(
             200,
@@ -14,3 +15,6 @@ class AsanaTests(create_oauth2_tests(registry.by_id(AsanaProvider.id))):
 {"id": 3133777, "name": "Personal Projects"}], "email": "test@example.com",
 "name": "Test Name", "id": 43748387}}""",
         )
+
+    def get_expected_to_str(self):
+        return "test@example.com"

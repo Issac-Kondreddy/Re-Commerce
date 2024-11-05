@@ -12,7 +12,8 @@ SECRET_KEY = "django-insecure-j%vc)n=o1ktuqjv!o(gg7+($tgh12=!v0sodl3%j^sxca^l6wg
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True  # Set to False in production
 
-ALLOWED_HOSTS = []  # Add your domain or IP address here in production
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ # Add your domain or IP address here in production
 
 
 # Application definition
@@ -46,7 +47,7 @@ SOCIALACCOUNT_PROVIDERS = {
         'AUTH_PARAMS': {
             'access_type': 'online',
         },
-        'OAUTH_PKCE_ENABLED': True,
+        'OAUTH_PKCE_ENABLED': False,
     }
 }
 
@@ -61,7 +62,7 @@ SOCIALACCOUNT_LOGIN_ON_GET = True  # Automatically log in after returning from G
 # Redirect URLs after login and signup
 LOGIN_REDIRECT_URL = '/authentication/home/' # Redirect to home after login
 ACCOUNT_LOGOUT_REDIRECT_URL = '/authentication/login/'  # Redirect to login page after logout
-LOGIN_URL = 'login'  # Redirect to login page if not authenticated
+LOGIN_URL = '/authentication/login/'  # Redirect to login page if not authenticated
 
 # Django Rest Framework Settings
 REST_FRAMEWORK = {
@@ -75,13 +76,15 @@ REST_FRAMEWORK = {
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'allauth.account.middleware.AccountMiddleware',  # Add this line
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 
 ROOT_URLCONF = "user_service.urls"
 
@@ -148,7 +151,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 # Security settings for CSRF and session management
-CSRF_COOKIE_SAMESITE = 'Strict'
+CSRF_COOKIE_SAMESITE = 'Lax'
 SESSION_COOKIE_SAMESITE = 'Strict'
 CSRF_COOKIE_HTTPONLY = False  # False since we might grab it via universal-cookies
 SESSION_COOKIE_HTTPONLY = True
