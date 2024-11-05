@@ -33,7 +33,6 @@ INSTALLED_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.google",
-    "verify_email.apps.VerifyEmailConfig",
     "phonenumber_field",
 ]
 
@@ -111,7 +110,7 @@ SOCIALACCOUNT_LOGIN_ON_GET = True
 # Redirects
 LOGIN_REDIRECT_URL = "/authentication/home/"
 ACCOUNT_LOGOUT_REDIRECT_URL = "/authentication/login/"
-LOGIN_URL = "/authentication/login/"
+LOGIN_URL = "/login/"
 
 # Django Rest Framework
 REST_FRAMEWORK = {

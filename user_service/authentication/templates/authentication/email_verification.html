@@ -1,0 +1,18 @@
+<!-- authentication/templates/authentication/email_verification.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Verify Your Email</title>
+</head>
+<body>
+    <h2>Hello {{ user.username }},</h2>
+    <p>Thank you for registering at ReCommerce!</p>
+    <p>Please verify your email address by clicking the link below:</p>
+    <p><a href="{{ verification_url }}">{{ verification_url }}</a></p>
+    <p>If you did not request this registration, please ignore this email.</p>
+    <p>Best regards,</p>
+    <p>The ReCommerce Team</p>
+</body>
+</html>
