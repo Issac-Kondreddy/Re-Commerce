@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'orders/css/history.css' %}">
+    <title>Order History</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Order History</h1>
+        <ul class="order-list">
+            {% for order in orders %}
+            <li>
+                <a href="{% url 'order_detail' order.order_id %}" class="order-link">
+                    <span><strong>Order ID:</strong> {{ order.order_id }}</span>
+                    <span><strong>Date:</strong> {{ order.created_at|date:"F j, Y, g:i a" }}</span>
+                    <span><strong>Total:</strong> ${{ order.total_price }}</span>
+                </a>
+            </li>
+            {% empty %}
+            <p class="no-orders">No orders found.</p>
+            {% endfor %}
+        </ul>
+
+        <!-- Back to Products Button -->
+        <a href="http://localhost:8002/products/page/" class="btn-home">Back to Products</a>
+    </div>
+</body>
+</html>

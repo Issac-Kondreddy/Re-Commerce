@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'orders/css/detail.css' %}">
+    <title>Order Details</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Order Details for Order ID: {{ order.order_id }}</h1>
+        <p><strong>Date:</strong> {{ order.created_at|date:"F j, Y, g:i a" }}</p>
+        <p class="total-amount"><strong>Total Amount:</strong> ${{ order.total_price }}</p>
+
+        <h2>Items</h2>
+        <ul class="items-list">
+            {% for item in order.items %}
+            <li>
+                <span><strong>{{ item.product_name }}</strong></span>
+                <span>Quantity: {{ item.quantity }}</span>
+                <span>Price: ${{ item.product_price }}</span>
+                <span>Total: ${{ item.total_price }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <!-- Back to Order History Button -->
+        <a href="{% url 'order_history' %}" class="btn-history">Back to Order History</a>
+    </div>
+</body>
+</html>

@@ -8,7 +8,8 @@ from .models import Cart, CartItem, Order, OrderItem
 from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
 from django.conf import settings
-
+from django.shortcuts import render
+from django.views import View
 User = get_user_model()
 
 @method_decorator(csrf_exempt, name='dispatch')
@@ -123,6 +124,28 @@ class PlaceOrderView(View):
 
         return JsonResponse({"success": True, "message": "Order placed successfully!", "order_id": order.id})
 
+
+@method_decorator(csrf_exempt, name='dispatch')
+class OrderConfirmationView(View):
+    def get(self, request, order_id):
+        # Retrieve the order based on order_id, or use mock data for now
+        try:
+            order = Order.objects.get(id=order_id)
+            order_data = {
+                'order_id': order.id,
+                'total_amount': order.total_price,
+                'order_date': order.created_at,
+            }
+        except Order.DoesNotExist:
+            # Mock data for testing if order doesn't exist
+            order_data = {
+                'order_id': order_id,
+                'total_amount': 99.99,  # Example total amount
+                'order_date': '2024-11-04'  # Example date
+            }
+
+        return render(request, 'orders/order_confirmation.html', order_data)
+
 @method_decorator(csrf_exempt, name='dispatch')
 class OrderHistoryView(View):
     def get(self, request):
@@ -132,22 +155,38 @@ class OrderHistoryView(View):
         # Retrieve all orders for the user
         orders = Order.objects.filter(user=user).order_by('-created_at')
         
-        # Structure the order data with items and total price
+        # Prepare order data for the template
         order_history = [
             {
                 "order_id": order.id,
                 "created_at": order.created_at,
-                "total_price": float(order.total_price),
-                "items": [
-                    {
-                        "product_name": item.product_name,
-                        "product_price": float(item.product_price),
-                        "quantity": item.quantity,
-                        "total_price": float(item.product_price * item.quantity)
-                    } for item in order.items.all()
-                ]
+                "total_price": order.total_price
             }
             for order in orders
         ]
 
-        return JsonResponse({"success": True, "orders": order_history})
+        return render(request, 'orders/order_history.html', {'orders': order_history})
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class OrderDetailView(View):
+    def get(self, request, order_id):
+        try:
+            order = Order.objects.get(id=order_id)
+            order_data = {
+                "order_id": order.id,
+                "created_at": order.created_at,
+                "total_price": order.total_price,
+                "items": [
+                    {
+                        "product_name": item.product_name,
+                        "product_price": item.product_price,
+                        "quantity": item.quantity,
+                        "total_price": item.product_price * item.quantity
+                    }
+                    for item in order.items.all()
+                ]
+            }
+            return render(request, 'orders/order_detail.html', {'order': order_data})
+        except Order.DoesNotExist:
+            return JsonResponse({"success": False, "message": "Order not found."}, status=404)

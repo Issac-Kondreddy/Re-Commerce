@@ -1,0 +1,95 @@
+/* Dark background and general styling */
+body {
+    background-color: #1b1b1b;
+    color: #f0f0f0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: #2c2c2c;
+    padding: 30px;
+    max-width: 600px;
+    width: 90%;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* Headings and Order List */
+h1 {
+    color: #00c853;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.order-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Order List Items */
+.order-list li {
+    background-color: #333;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.order-list li:hover {
+    background-color: #444;
+    transform: translateY(-3px);
+}
+
+/* Order Link Styling */
+.order-link {
+    color: #81d4fa;
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+}
+
+.order-link span {
+    display: block;
+}
+
+.order-link strong {
+    color: #b2ff59;
+}
+
+.order-link:hover {
+    color: #00e676;
+}
+
+/* No Orders Message */
+.no-orders {
+    color: #f0f0f0;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+/* Back to Home Button */
+.btn-home {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 10px 20px;
+    color: #f0f0f0;
+    background-color: #00c853;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-home:hover {
+    background-color: #00e676;
+    transform: scale(1.05);
+}
