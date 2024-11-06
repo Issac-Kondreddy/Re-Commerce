@@ -1,0 +1,10 @@
+services:
+  product_service:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+      - DEBUG=True
+    volumes:
+      - .:/app
