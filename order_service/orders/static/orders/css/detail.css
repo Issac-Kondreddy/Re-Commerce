@@ -1,0 +1,82 @@
+/* Dark background and general styling */
+body {
+    background-color: #1b1b1b;
+    color: #f0f0f0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: #2c2c2c;
+    padding: 30px;
+    max-width: 700px;
+    width: 90%;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Headings and Summary Info */
+h1 {
+    color: #00c853;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.total-amount {
+    font-size: 18px;
+    color: #f5f5f5;
+    margin: 15px 0;
+}
+
+h2 {
+    color: #81d4fa;
+    font-size: 22px;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+/* Item List Styling */
+.items-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.items-list li {
+    background-color: #333;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.items-list li:hover {
+    background-color: #444;
+    transform: translateY(-3px);
+}
+
+/* Back to Order History Button */
+.btn-history {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 10px 20px;
+    color: #f0f0f0;
+    background-color: #00c853;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-history:hover {
+    background-color: #00e676;
+    transform: scale(1.05);
+}

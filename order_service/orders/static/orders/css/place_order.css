@@ -1,0 +1,67 @@
+/* General page styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* Navbar styling */
+.navbar {
+    margin-bottom: 20px;
+}
+
+/* Container for order confirmation */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 1.75rem;
+    color: #007bff;
+}
+
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    border: none;
+}
+
+.card h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #333;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+}
+
+/* List styling for order items */
+.list-group-item {
+    font-size: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.list-group-item span {
+    color: #555;
+}
+
+/* Total price styling */
+.text-end strong {
+    font-size: 1.1rem;
+    color: #000;
+}
+
+/* Button styling */
+button.btn-primary {
+    font-size: 1.1rem;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+button.btn-primary:hover {
+    background-color: #0056b3;
+    color: #fff;
+    border: none;
+}

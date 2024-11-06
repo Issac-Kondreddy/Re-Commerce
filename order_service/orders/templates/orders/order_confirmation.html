@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'orders/css/confirmation.css' %}">
+    <title>Order Confirmation</title>
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 Thank You for Your Order! 🎉</h1>
+        <p class="success-message">Your order has been successfully placed.</p>
+
+        <div class="order-summary">
+            <h2>Order Summary</h2>
+            <p><strong>Order ID:</strong> {{ order_id }}</p>
+            <p><strong>Total Amount:</strong> ${{ total_amount }}</p>
+            <p><strong>Order Date:</strong> {{ order_date }}</p>
+        </div>
+
+        <a href="{% url 'order_history' %}" class="btn-link">View Order History</a>
+    </div>
+</body>
+</html>

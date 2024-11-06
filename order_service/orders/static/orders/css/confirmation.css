@@ -1,0 +1,68 @@
+/* Dark background and text styling */
+body {
+    background-color: #1b1b1b;
+    color: #f0f0f0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: #2c2c2c;
+    padding: 30px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Headings and Success Message */
+h1 {
+    color: #00c853;
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.success-message {
+    color: #b2ff59;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #81d4fa;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+/* Order Summary Section */
+.order-summary p {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.order-summary strong {
+    color: #f5f5f5;
+}
+
+/* Button Styling */
+.btn-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    color: #00e676;
+    background-color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-link:hover {
+    background-color: #00e676;
+    color: #1b1b1b;
+}
