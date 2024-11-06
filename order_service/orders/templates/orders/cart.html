@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="{% static 'orders/css/cart.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Shopping Cart</h1>
+        
+        {% if cart.items %}
+            <table>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Actions</th>
+                </tr>
+                {% for item in cart.items %}
+                    <tr>
+                        <td>{{ item.product_name }}</td>
+                        <td>${{ item.product_price }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>${{ item.total_price }}</td>
+                        <td>
+                            <!-- Inline form to remove item -->
+                            <form method="post" action="{% url 'remove_from_cart' %}" style="display:inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="product_id" value="{{ item.product_id }}">
+                                <button type="submit" class="remove-btn">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+            <!-- Total Cart Value -->
+            <h3>Total Cart Value: ${{ cart.total_cart_value }}</h3>
+
+            <!-- Place Order Button for Entire Cart -->
+            <form method="post" action="{% url 'place_order' %}">
+                {% csrf_token %}
+                <button type="submit" class="place-order-btn">Place Order for Entire Cart</button>
+            </form>
+        
+        {% else %}
+            <p class="message">Your cart is empty.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
