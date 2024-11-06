@@ -1,10 +1,11 @@
+version: '3.8'
+
 services:
   product_service:
-    build: .
+    build:
+      context: .
     ports:
       - "8000:8000"
-    environment:
-      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
-      - DEBUG=True
-    volumes:
-      - .:/app
+
+volumes:
+  static_volume:
