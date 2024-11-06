@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReCommerce - Product List</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> <!-- Link to CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="#">ReCommerce</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <!-- Cart Icon -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                                <path d="M0 1.5A.5.5 0 0 1 .5 1h1a.5.5 0 0 1 .485.379L2.89 6H14.5a.5.5 0 0 1 .491.592l-1.5 8a.5.5 0 0 1-.491.408H4a.5.5 0 0 1-.491-.408L1.01 6.607 1.61 4H.5a.5.5 0 0 1-.5-.5zM3.14 6l1.25 6.58A.5.5 0 0 1 4 13h8a.5.5 0 0 1 .491-.408L13.89 7H3.14zM5 15a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm6 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                            </svg>
+                            <span class="badge bg-primary ms-1">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar for Categories -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+                <div class="position-sticky">
+                    <h4 class="mt-4 ms-3">ReCommerce</h4>
+                    <h5 class="mt-4 ms-3">Categories</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'product-list-page' %}?category=Electronics">Electronics</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'product-list-page' %}?category=Appliances">Appliances</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'product-list-page' %}?category=Clothing">Clothing</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'product-list-page' %}?category=Accessories">Accessories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'product-list-page' %}?category=Home Decor">Home Decor</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'product-list-page' %}?category=Kitchen">Kitchen</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'product-list-page' %}?category=Automotive">Automotive</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'product-list-page' %}?category=Outdoor">Outdoor</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'product-list-page' %}?category=Fitness">Fitness</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'product-list-page' %}?category=Sports">Sports</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'product-list-page' %}?category=Pet Supplies">Pet Supplies</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main Content Area -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <h1 class="mt-4 mb-4">Available Products</h1>
+
+                <!-- Search Form -->
+                <form method="GET" action="{% url 'product-list-page' %}" class="mb-4">
+                    <div class="input-group">
+                        <input type="text" name="q" class="form-control" placeholder="Search products..." value="{{ request.GET.q }}">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                </form>
+
+                <!-- Filters Form -->
+                <form method="GET" action="{% url 'product-list-page' %}" class="mb-4">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="category" class="form-label">Category:</label>
+                            <select name="category" id="category" class="form-select">
+                                <option value="">All</option>
+                                <option value="Electronics" {% if request.GET.category == "Electronics" %}selected{% endif %}>Electronics</option>
+                                <option value="Appliances" {% if request.GET.category == "Appliances" %}selected{% endif %}>Appliances</option>
+                                <option value="Clothing" {% if request.GET.category == "Clothing" %}selected{% endif %}>Clothing</option>
+                                <option value="Accessories" {% if request.GET.category == "Accessories" %}selected{% endif %}>Accessories</option>
+                                <option value="Home Decor" {% if request.GET.category == "Home Decor" %}selected{% endif %}>Home Decor</option>
+                                <option value="Kitchen" {% if request.GET.category == "Kitchen" %}selected{% endif %}>Kitchen</option>
+                                <option value="Automotive" {% if request.GET.category == "Automotive" %}selected{% endif %}>Automotive</option>
+                                <option value="Outdoor" {% if request.GET.category == "Outdoor" %}selected{% endif %}>Outdoor</option>
+                                <option value="Fitness" {% if request.GET.category == "Fitness" %}selected{% endif %}>Fitness</option>
+                                <option value="Sports" {% if request.GET.category == "Sports" %}selected{% endif %}>Sports</option>
+                                <option value="Pet Supplies" {% if request.GET.category == "Pet Supplies" %}selected{% endif %}>Pet Supplies</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="min_price" class="form-label">Min Price:</label>
+                            <input type="number" name="min_price" id="min_price" class="form-control" value="{{ request.GET.min_price }}">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="max_price" class="form-label">Max Price:</label>
+                            <input type="number" name="max_price" id="max_price" class="form-control" value="{{ request.GET.max_price }}">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success mt-3">Apply Filters</button>
+                </form>
+
+                <!-- Product List -->
+                <div class="row card-container">
+                    {% for product in products %}
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            <div class="card">
+                                <img src="{% static 'images/default_product.png' %}" class="card-img-top" alt="{{ product.name }}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ product.name }}</h5>
+                                    <p class="card-text">{{ product.description|truncatewords:10 }}</p>
+                                    <p class="card-text"><strong>Price:</strong> ${{ product.price }}</p>
+                                    <a href="{% url 'product-detail-page' product.id %}" class="btn btn-primary">View Details</a>
+                                    <button class="btn btn-success mt-2" onclick="selectProduct('{{ product.id }}')">Select</button>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function selectProduct(productId) {
+            alert('Product ' + productId + ' has been selected!');
+        }
+    </script>
+</body>
+</html>
