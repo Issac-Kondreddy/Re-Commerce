@@ -9,7 +9,7 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('login/', views.login_user, name='login'),
     path('logout/', views.logout_user, name='logout'),
-    path('home/', views.home, name='home'),
+    path('home/', views.dashboard, name='dashboard'),
     path('profile/', views.profile_view, name='profile'),
     path('verification_sent/', TemplateView.as_view(template_name="authentication/verification_sent.html"), name='verification_sent'),
     

@@ -93,7 +93,7 @@ def login_user(request):
         if user:
             if user.is_active:
                 login(request, user)
-                return redirect('home')
+                return redirect(settings.LOGIN_REDIRECT_URL)  # Use LOGIN_REDIRECT_URL from settings
             else:
                 return HttpResponse("Your account is inactive. Please verify your email.", status=400)
         return HttpResponse("Invalid Credentials", status=400)
@@ -102,8 +102,8 @@ def login_user(request):
 # Home View (Requires Login)
 @never_cache
 @login_required
-def home(request):
-    return render(request, 'authentication/home.html')
+def dashboard(request):
+    return render(request, 'authentication/dashboard.html')
 
 # Logout View
 @csrf_exempt

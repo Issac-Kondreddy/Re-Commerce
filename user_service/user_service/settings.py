@@ -1,21 +1,19 @@
-# settings.py
-
-import environ
 from pathlib import Path
+import environ
 import os
 
 # Base directory path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Load environment variables from .env
-env = environ.Env(
-    DEBUG=(bool, False)
-)
+# Load environment variables from .env file
+env = environ.Env()
 environ.Env.read_env(BASE_DIR / ".env")
+
 # Basic settings
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 DEBUG = env("DEBUG")
 ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+
 
 # Installed apps
 INSTALLED_APPS = [
@@ -55,7 +53,7 @@ ROOT_URLCONF = "user_service.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "Templates"],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [

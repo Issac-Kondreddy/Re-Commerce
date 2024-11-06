@@ -10,7 +10,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("authentication/", include("authentication.urls")),
     path("accounts/", include("allauth.urls")),
-    path("", views.project_home, name="project_home"),
+    path("", views.project_home, name="home"),
 ]
 
 if settings.DEBUG:
