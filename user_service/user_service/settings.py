@@ -98,6 +98,8 @@ SOCIALACCOUNT_PROVIDERS = {
         "OAUTH_PKCE_ENABLED": False,
     }
 }
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = "http"  # This should be "https" if using SSL
+ACCOUNT_ADAPTER = "allauth.account.adapter.DefaultAccountAdapter"
 
 # Automatic login after Google login/signup
 SOCIALACCOUNT_AUTO_SIGNUP = True

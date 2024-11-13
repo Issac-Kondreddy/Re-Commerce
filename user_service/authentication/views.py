@@ -58,7 +58,7 @@ def register(request):
     else:
         form = CustomUserCreationForm()
 
-    return render(request, 'authentication/login.html', {'form': form})
+    return render(request, 'authentication/register.html', {'form': form})
 
 
 # Verification Sent Confirmation View
