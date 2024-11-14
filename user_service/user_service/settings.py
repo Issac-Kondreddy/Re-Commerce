@@ -13,6 +13,10 @@ environ.Env.read_env(BASE_DIR / ".env")
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 DEBUG = env("DEBUG")
 ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:8081',
+    'http://127.0.0.1:8081',
+]
 
 
 # Installed apps
@@ -96,6 +100,7 @@ SOCIALACCOUNT_PROVIDERS = {
         "SCOPE": ["profile", "email"],
         "AUTH_PARAMS": {"access_type": "online"},
         "OAUTH_PKCE_ENABLED": False,
+        "REDIRECT_URI": "http://localhost:8081/accounts/google/login/callback/",  # Match with Google Console URI
     }
 }
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = "http"  # This should be "https" if using SSL
