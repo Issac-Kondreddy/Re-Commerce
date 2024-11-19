@@ -96,7 +96,8 @@ USE_TZ = True
 # Static and Media Files
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
-STATIC_ROOT = BASE_DIR / "staticfiles"  # For `collectstatic` in production
+# In settings.py of each project
+STATIC_ROOT = '/Users/issackondreddy/Desktop/ReCommerce/collected_static/'  # For `collectstatic` in production
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"

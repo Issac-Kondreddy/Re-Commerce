@@ -12,8 +12,8 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
-            <!-- Left-aligned Brand Name -->
-            <a class="navbar-brand" href="{% url 'product-list-page' %}">ReCommerce</a>
+            <!-- Left-aligned Brand Name that links to Home -->
+            <a class="navbar-brand" href="http://localhost:8081/authentication/home/" onclick="return true;">ReCommerce</a>
             
             <!-- Optional Search Bar in Center -->
             <form class="d-flex mx-auto" style="max-width: 500px;">
@@ -43,7 +43,7 @@
             <p><strong>Description:</strong> {{ product.description }}</p>
             <p><strong>Price:</strong> ${{ product.price }}</p>
             <p><strong>Stock Available:</strong> {{ product.stock }}</p>
-            <a href="{% url 'product-list-page' %}" class="btn btn-secondary mt-3">Back to Products</a>
+            <a href="http://localhost:8081/products/page/" class="btn btn-secondary mt-3">Back to Products</a>
             <button class="btn btn-primary mt-3">Add to Cart</button>
         </div>
     </div>

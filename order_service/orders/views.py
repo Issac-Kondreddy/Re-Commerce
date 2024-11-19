@@ -201,3 +201,18 @@ class OrderDetailView(View):
             return render(request, 'orders/order_detail.html', {'order': order_data})
         except Order.DoesNotExist:
             return JsonResponse({"success": False, "message": "Order not found."}, status=404)
+
+class OrdersHomeView(View):
+    def get(self, request):
+        return JsonResponse({
+            "message": "Welcome to the Orders API. Here are the available endpoints:",
+            "endpoints": [
+                "add-to-cart/",
+                "view-cart/",
+                "remove-from-cart/",
+                "place-order/",
+                "order-history/",
+                "order-confirmation/<order_id>/",
+                "order-detail/<order_id>/",
+            ]
+        })
