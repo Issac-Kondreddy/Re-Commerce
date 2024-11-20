@@ -116,7 +116,7 @@ SOCIALACCOUNT_LOGIN_ON_GET = True
 # Redirects
 LOGIN_REDIRECT_URL = "/authentication/home/"
 ACCOUNT_LOGOUT_REDIRECT_URL = "/authentication/login/"
-LOGIN_URL = "/login/"
+LOGIN_URL = "/authentication/login/"
 
 # Django Rest Framework
 REST_FRAMEWORK = {
@@ -130,7 +130,7 @@ REST_FRAMEWORK = {
 
 # CSRF and Session Management
 CSRF_COOKIE_SAMESITE = "Lax"
-SESSION_COOKIE_SAMESITE = "Strict"
+SESSION_COOKIE_SAMESITE = "Lax"
 CSRF_COOKIE_HTTPONLY = False
 SESSION_COOKIE_HTTPONLY = True
 

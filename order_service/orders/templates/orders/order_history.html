@@ -23,7 +23,10 @@
             {% endfor %}
         </ul>
         <a href="http://localhost:8002/products/page/" class="btn-home">Back to Products</a>
-        <a href="http://localhost:8001/authentication/home/" class="btn-home">Back to Home</a> 
+        <a href="{% if user.is_authenticated %}/authentication/home/{% else %}/authentication/login/?next=/authentication/home/{% endif %}" class="btn-home">
+            Back to Home
+        </a>
+        
     </div>
 </body>
 </html>
